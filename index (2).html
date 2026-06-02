@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Novo — Fotografía & Audiovisual</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='900' fill='%23C8102E'>FN</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --rojo: #C8102E; --rojo-oscuro: #8B0000; --negro: #0a0a0a;
+    --blanco: #f5f0eb; --gris: #1a1a1a; --gris-medio: #2a2a2a; --texto-muted: #888;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--negro); color: var(--blanco); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+  .deco-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .deco-bg svg { width: 100%; height: 100%; opacity: 0.045; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,16,46,0.2); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; color: var(--blanco); text-decoration: none; }
+  .nav-logo span { color: var(--rojo); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texto-muted); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--rojo); }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 3rem 5rem; position: relative; z-index: 2; }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--rojo); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--rojo); }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 900; line-height: 0.95; margin-bottom: 2rem; }
+  .hero-title em { font-style: italic; color: var(--rojo); }
+  .hero-bio { font-size: 0.95rem; line-height: 1.8; color: var(--texto-muted); max-width: 380px; margin-bottom: 3rem; }
+  .hero-bio p { margin-bottom: 0.8rem; }
+  .hero-cta { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--rojo); color: var(--blanco); border: none; padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background 0.3s; display: inline-block; }
+  .btn-primary:hover { background: var(--rojo-oscuro); }
+  .btn-outline { background: transparent; color: var(--blanco); border: 1px solid rgba(245,240,235,0.3); padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--rojo); color: var(--rojo); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--negro) 0%, transparent 40%); pointer-events: none; }
+  .hero-line { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--rojo); }
+  section { padding: 7rem 3rem; position: relative; z-index: 1; }
+  .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
+  .section-number { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: rgba(200,16,46,0.15); line-height: 1; user-select: none; }
+  .section-title-group { flex: 1; }
+  .section-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--rojo); margin-bottom: 0.4rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--blanco); }
+  .section-divider { flex: 1; height: 1px; background: rgba(200,16,46,0.25); }
+  .grid-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .grid-masonry.eventos { grid-template-columns: repeat(2, 1fr); }
+  .grid-documental { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-documental .foto-card { aspect-ratio: auto; }
+  .grid-documental .foto-card img { width: 100%; height: auto; display: block; }
+  .foto-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; background: var(--gris-medio); }
+  .foto-card.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .foto-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(10%) contrast(1.05); }
+  .foto-card:hover img { transform: scale(1.04); filter: grayscale(0%) contrast(1.1); }
+  .foto-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; display: flex; align-items: flex-end; padding: 1rem; }
+  .foto-card:hover .foto-overlay { opacity: 1; }
+  .foto-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blanco); }
+  .badge-premio { position: absolute; top: 0.8rem; right: 0.8rem; background: var(--rojo); color: var(--blanco); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.6rem; }
+  .audio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .reels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 4rem; }
+  .video-card { background: var(--gris); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; transition: border-color 0.3s; cursor: pointer; }
+  .video-card:hover { border-color: var(--rojo); }
+  .video-thumb { aspect-ratio: 16/9; background: var(--gris-medio); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s; }
+  .video-card:hover .video-thumb img { opacity: 1; }
+  .play-btn { position: absolute; width: 52px; height: 52px; border: 2px solid var(--blanco); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; background: rgba(0,0,0,0.5); pointer-events: none; }
+  .video-card:hover .play-btn { background: var(--rojo); border-color: var(--rojo); }
+  .play-btn svg { width: 18px; height: 18px; fill: var(--blanco); margin-left: 3px; }
+  .video-info { padding: 1rem 1.2rem; }
+  .video-tipo { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rojo); margin-bottom: 0.3rem; }
+  .video-titulo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; color: var(--blanco); }
+  .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .sobre-texto p { font-size: 1rem; line-height: 1.9; color: rgba(245,240,235,0.75); margin-bottom: 1.2rem; }
+  .sobre-texto p strong { color: var(--blanco); font-weight: 500; }
+  .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(200,16,46,0.2); border: 1px solid rgba(200,16,46,0.2); margin-top: 2.5rem; }
+  .stat { background: var(--negro); padding: 1.5rem; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--rojo); display: block; line-height: 1; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--texto-muted); }
+  .sobre-derecha { display: flex; flex-direction: column; gap: 3rem; }
+  .perfil-foto-wrap { position: relative; width: 100%; max-width: 180px; }
+  .perfil-foto-wrap::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--rojo); opacity: 0.4; pointer-events: none; }
+  .perfil-foto { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center top; display: block; filter: grayscale(15%) contrast(1.05); }
+  .perfil-placeholder { width: 100%; max-width: 180px; aspect-ratio: 4/5; background: var(--gris-medio); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem; color: var(--texto-muted); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px dashed rgba(255,255,255,0.1); }
+  .perfil-placeholder svg { width: 36px; height: 36px; opacity: 0.25; }
+  .sobre-identidad { padding-top: 0; }
+  .identidad-item { display: flex; gap: 1.5rem; margin-bottom: 2.5rem; align-items: flex-start; }
+  .identidad-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--rojo); opacity: 0.5; min-width: 2rem; line-height: 1.2; }
+  .identidad-texto strong { display: block; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blanco); margin-bottom: 0.4rem; }
+  .identidad-texto p { font-size: 0.85rem; color: var(--texto-muted); line-height: 1.7; }
+  .contacto-section { background: var(--gris); border-top: 3px solid var(--rojo); }
+  .contacto-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+  .contacto-title { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.1; }
+  .contacto-title em { font-style: italic; color: var(--rojo); }
+  .contacto-sub { color: var(--texto-muted); font-size: 0.9rem; margin-bottom: 3rem; }
+  .contacto-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .contacto-item { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .contacto-tipo { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rojo); }
+  .contacto-valor { font-size: 0.9rem; color: var(--blanco); text-decoration: none; transition: color 0.3s; }
+  .contacto-valor:hover { color: var(--rojo); }
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; color: var(--texto-muted); }
+  .footer-logo span { color: var(--rojo); }
+  .footer-copy { font-size: 0.7rem; color: rgba(136,136,136,0.5); letter-spacing: 0.05em; }
+  .section-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .section-deco svg { width: 100%; height: 100%; }
+  .subsection-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rojo); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .subsection-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--rojo); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 999; align-items: center; justify-content: center; }
+  .modal-overlay.activo { display: flex; }
+  .modal-inner { position: relative; width: 90%; max-width: 900px; }
+  .modal-inner.vertical { max-width: 400px; }
+  .modal-video { position: relative; padding-bottom: 56.25%; height: 0; }
+  .modal-inner.vertical .modal-video { padding-bottom: 177.78%; }
+  .modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .modal-cerrar { position: absolute; top: -2.5rem; right: 0; background: none; border: none; color: var(--blanco); font-size: 1.8rem; cursor: pointer; line-height: 1; opacity: 0.7; transition: opacity 0.2s; font-family: sans-serif; }
+  .modal-cerrar:hover { opacity: 1; color: var(--rojo); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 1.5rem 4rem; }
+    section { padding: 5rem 1.5rem; }
+    .grid-masonry { grid-template-columns: 1fr 1fr; }
+    .audio-grid { grid-template-columns: 1fr; }
+    .reels-grid { grid-template-columns: repeat(2, 1fr); }
+    .sobre-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MODAL DE VIDEO -->
+<div class="modal-overlay" id="videoModal" onclick="cerrarModal(event)">
+  <div class="modal-inner" id="modalInner">
+    <button class="modal-cerrar" onclick="cerrarModalBtn()">✕</button>
+    <div class="modal-video">
+      <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="deco-bg" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+    <path d="M-100 200 C200 50, 500 350, 800 180 S1200 400, 1600 100" stroke="white" stroke-width="1.2"/>
+    <path d="M-100 600 C150 480, 400 700, 750 520 S1100 750, 1600 500" stroke="white" stroke-width="0.8"/>
+    <path d="M0 900 C300 750, 600 850, 900 680 S1300 820, 1600 700" stroke="white" stroke-width="0.6"/>
+    <path d="M1200 0 C1100 150, 1300 300, 1000 500 S900 700, 1100 900" stroke="white" stroke-width="0.5"/>
+    <path d="M300 0 C250 200, 350 400, 200 600 S100 750, 250 900" stroke="white" stroke-width="0.4"/>
+    <path d="M-200 400 Q400 0 800 400 Q1200 800 1700 350" stroke="white" stroke-width="0.7"/>
+    <path d="M0 100 Q300 400 600 200 Q900 0 1200 300 Q1500 600 1600 400" stroke="white" stroke-width="0.5"/>
+    <path d="M-100 750 C300 600, 700 800, 1100 600 S1400 750, 1700 650" stroke="#C8102E" stroke-width="0.8" opacity="0.6"/>
+    <path d="M200 0 C400 200, 300 500, 600 350 S900 100, 1100 300" stroke="#C8102E" stroke-width="0.5" opacity="0.4"/>
+  </svg>
+</div>
+
+<!-- NAVEGACIÓN -->
+<nav>
+  <a href="#inicio" class="nav-logo">Franco <span>Novo</span></a>
+  <ul class="nav-links">
+    <li><a href="#musica">Música</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#comercial">Comercial</a></li>
+    <li><a href="#documental">Documental</a></li>
+    <li><a href="#edicion">Edición</a></li>
+    <li><a href="#audiovisual">Dirección de foto</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="inicio" class="hero" style="padding:0; position:relative;">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Fotografía & Audiovisual</p>
+    <h1 class="hero-title">Franco<br><em>Novo</em></h1>
+    <div class="hero-bio">
+      <p>Fotógrafo especializado en música en vivo, eventos y proyectos documentales.</p>
+      <p>Estudiante de Artes Audiovisuales con experiencia en cámara e iluminación, abordo cada proyecto desde una mirada técnica y narrativa.</p>
+    </div>
+    <div class="hero-cta">
+      <a href="https://franconovo.myportfolio.com/proyectos" class="btn-primary" target="_blank" rel="noopener">Ver portfolio</a>
+      <a href="#contacto" class="btn-outline">Contacto</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div style="display:grid; grid-template-rows: 60% 40%; height:100vh;">
+      <div style="overflow:hidden;">
+        <img src="fotos/por2.jpg" alt="Cantante en escena" style="width:100%;height:100%;object-fit:cover;filter:grayscale(20%) contrast(1.1);" />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; height:100%;">
+        <div style="overflow:hidden;">
+          <img src="fotos/por1.jpg" alt="Cantante folklórica" style="width:100%;height:100%;object-fit:cover;filter:grayscale(20%) contrast(1.1);" />
+        </div>
+        <div style="overflow:hidden;">
+          <img src="fotos/por4.jpg" alt="Guitarrista" style="width:100%;height:100%;object-fit:cover;filter:grayscale(20%) contrast(1.1);" />
+        </div>
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-line"></div>
+</section>
+
+<!-- 01 MÚSICA -->
+<section id="musica" style="position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M-50 500 C200 350, 500 550, 800 300 S1100 450, 1300 200" stroke="white" stroke-width="0.7" opacity="0.06"/>
+      <path d="M1300 550 C1000 400, 700 600, 400 380 S100 450, -50 300" stroke="#C8102E" stroke-width="0.6" opacity="0.12"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Fotografía de conciertos</p>
+      <h2 class="section-title">Música en vivo</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="grid-masonry">
+    <div class="foto-card wide">
+      <img src="fotos/por2.jpg" alt="Cantante fondo rojo" />
+      <div class="foto-overlay"><span class="foto-label">Tuli Acosta</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por1.jpg" alt="Cantante folklórica" />
+      <div class="foto-overlay"><span class="foto-label">Maggie Cullen</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por4.jpg" alt="Guitarrista contraluz" />
+      <div class="foto-overlay"><span class="foto-label">Él Mató a un Policía Motorizado</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por3.jpg" alt="Público" />
+      <div class="foto-overlay"><span class="foto-label">El público</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/POR 5.jpg" alt="Cantante vestido rojo" />
+      <div class="foto-overlay"><span class="foto-label">Momento íntimo</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/POR 7.jpg" alt="Cantante luz morada" />
+      <div class="foto-overlay"><span class="foto-label">Luz & emoción</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/K40S.jpg" alt="K4OS" />
+      <div class="foto-overlay"><span class="foto-label">K40S</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/POR 8.jpg" alt="Cantante en escena" />
+      <div class="foto-overlay"><span class="foto-label">Escena</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 EVENTOS -->
+<section id="eventos" style="background: var(--gris); padding-top: 7rem; padding-bottom: 7rem; position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 300 Q300 100 600 300 Q900 500 1200 200" stroke="white" stroke-width="0.8" opacity="0.05"/>
+      <path d="M-100 50 C200 200, 500 0, 800 150 S1150 300, 1300 100" stroke="#C8102E" stroke-width="0.7" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Cobertura corporativa & social</p>
+      <h2 class="section-title">Eventos</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="grid-masonry eventos">
+    <div class="foto-card wide">
+      <img src="fotos/por 9.jpg" alt="Evento corporativo" />
+      <div class="foto-overlay"><span class="foto-label">Evento corporativo</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por 10.jpg" alt="Retrato social" />
+      <div class="foto-overlay"><span class="foto-label">Retrato social</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por 11.jpg" alt="Retrato" />
+      <div class="foto-overlay"><span class="foto-label">German Beder</span></div>
+    </div>
+    <div class="foto-card wide">
+      <img src="fotos/por 12.jpg" alt="Speaker" />
+      <div class="foto-overlay"><span class="foto-label">Speaker</span></div>
+    </div>
+    <div class="foto-card wide">
+      <img src="fotos/por 14.jpg" alt="Evento grupal" />
+      <div class="foto-overlay"><span class="foto-label">Evento institucional</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por 15.jpg" alt="Ambiente nocturno" />
+      <div class="foto-overlay"><span class="foto-label">Ambiente nocturno</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/poggi.jpg" alt="Lucas Poggi" />
+      <div class="foto-overlay"><span class="foto-label">Lucas Poggi</span></div>
+    </div>
+    <div class="foto-card wide">
+      <img src="fotos/por 13.jpg" alt="Panelista" />
+      <div class="foto-overlay"><span class="foto-label">Panelista</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 COMERCIAL -->
+<section id="comercial" style="position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 200 C300 50, 600 300, 900 150 S1200 300, 1400 100" stroke="white" stroke-width="0.7" opacity="0.05"/>
+      <path d="M-100 500 C200 350, 500 500, 800 350 S1100 480, 1400 300" stroke="#C8102E" stroke-width="0.6" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Marcas, producto & moda</p>
+      <h2 class="section-title">Comercial</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="grid-masonry">
+    <div class="foto-card wide">
+      <img src="fotos/com4.jpg" alt="Ropa — bnhl remeras" />
+      <div class="foto-overlay"><span class="foto-label">Sesión de moda — bnhl</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/com2.jpeg" alt="Ropa — bnhl hoodie" />
+      <div class="foto-overlay"><span class="foto-label">Sesión de moda — bnhl</span></div>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/com3.jpg" alt="Cosmética — Coolskin" />
+      <div class="foto-overlay"><span class="foto-label">Producto — Coolskin</span></div>
+    </div>
+    <div class="foto-card wide">
+      <img src="fotos/com1.jpg" alt="Cosmética — Hydra Glowy Woman" />
+      <div class="foto-overlay"><span class="foto-label">Producto cosmético</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 DOCUMENTAL -->
+<section id="documental" style="background: var(--gris); padding-top: 7rem; padding-bottom: 7rem; position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 150 C300 300, 600 100, 900 280 S1150 500, 1300 350" stroke="white" stroke-width="0.9" opacity="0.055"/>
+      <path d="M-100 350 Q300 150 700 400 Q1100 650 1400 300" stroke="#C8102E" stroke-width="0.8" opacity="0.12"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Fotografía documental & social</p>
+      <h2 class="section-title">Documental</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="grid-documental">
+    <div class="foto-card" style="position:relative;">
+      <img src="fotos/por 16.jpg" alt="Niñas escribiendo en marcha" />
+      <div class="foto-overlay"><span class="foto-label">Nunca más</span></div>
+      <span class="badge-premio">★ Selección arte joven</span>
+    </div>
+    <div class="foto-card" style="position:relative;">
+      <img src="fotos/por 17.jpg" alt="Pareja tomados de la mano" />
+      <div class="foto-overlay"><span class="foto-label">Tomados de la mano</span></div>
+      <span class="badge-premio">★ Mejor artista local</span>
+    </div>
+    <div class="foto-card" style="position:relative;">
+      <img src="fotos/por 18.jpg" alt="Taxista en Bolivia" />
+      <div class="foto-overlay"><span class="foto-label">La Quiaca — trabajo & ciudad</span></div>
+      <span class="badge-premio">★ Mención de honor</span>
+    </div>
+    <div class="foto-card">
+      <img src="fotos/por 19.jpg" alt="Cementerio y montañas Bolivia" />
+      <div class="foto-overlay"><span class="foto-label">Maimará — paisaje & memoria</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 EDICIÓN -->
+<section id="edicion" style="position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 500" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 250 C300 100, 600 350, 900 150 S1200 300, 1400 100" stroke="white" stroke-width="0.7" opacity="0.05"/>
+      <path d="M1300 400 C1000 250, 700 450, 400 280 S100 380, -100 250" stroke="#C8102E" stroke-width="0.6" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Reels, institucionales & contenido digital</p>
+      <h2 class="section-title">Edición</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <p class="subsection-label">Reels & cortes</p>
+  <div class="reels-grid">
+    <div class="video-card" onclick="abrirModal('tK4BwIVccDw', true)">
+      <div class="video-thumb" style="aspect-ratio:9/16;">
+        <img src="https://img.youtube.com/vi/tK4BwIVccDw/hqdefault.jpg" alt="Reel 1" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición</p>
+        <p class="video-titulo">Reel corto 1</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('9UHHsDifw1Q', true)">
+      <div class="video-thumb" style="aspect-ratio:9/16;">
+        <img src="https://img.youtube.com/vi/9UHHsDifw1Q/hqdefault.jpg" alt="Reel 2" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición</p>
+        <p class="video-titulo">Reel corto 2</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('bxBGeUXFEZY', true)">
+      <div class="video-thumb" style="aspect-ratio:9/16;">
+        <img src="https://img.youtube.com/vi/bxBGeUXFEZY/hqdefault.jpg" alt="Reel 3" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición</p>
+        <p class="video-titulo">Reel corto 3</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('waZzCSAWo1E', true)">
+      <div class="video-thumb" style="aspect-ratio:9/16;">
+        <img src="https://img.youtube.com/vi/waZzCSAWo1E/hqdefault.jpg" alt="Reel 4" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición</p>
+        <p class="video-titulo">Reel corto 4</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('EtblfKGaw3U', true)">
+      <div class="video-thumb" style="aspect-ratio:9/16;">
+        <img src="https://img.youtube.com/vi/EtblfKGaw3U/hqdefault.jpg" alt="Reel 5" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición</p>
+        <p class="video-titulo">Reel corto 5</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="subsection-label">Videos institucionales</p>
+  <div class="audio-grid" style="grid-template-columns:repeat(2,1fr);">
+    <div class="video-card" onclick="abrirModal('UwlUJwg91dM', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/UwlUJwg91dM/hqdefault.jpg" alt="Scania" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Video institucional</p>
+        <p class="video-titulo">Scania — Apertura & cierre de mercado</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('BLrmCGCQ8qs', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/BLrmCGCQ8qs/hqdefault.jpg" alt="YPF" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Video institucional</p>
+        <p class="video-titulo">YPF — Fin de año & Evolution</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('IfOIx8Ngkrs', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/IfOIx8Ngkrs/hqdefault.jpg" alt="Hay Música" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Video comercial</p>
+        <p class="video-titulo">Hay Música — Promo sponsor</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('bYWzdBnaVLI', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/bYWzdBnaVLI/hqdefault.jpg" alt="Sentido Común" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Recap anual</p>
+        <p class="video-titulo">Sentido Común — Eventos 2024</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="abrirModal('m2MsXa9NgSY', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/m2MsXa9NgSY/hqdefault.jpg" alt="FBNA Podcast" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Edición — Intro podcast</p>
+        <p class="video-titulo">FBNA — Germán Beder</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 DIRECCIÓN DE FOTOGRAFÍA -->
+<section id="audiovisual" style="background: var(--gris); padding-top: 7rem; padding-bottom: 7rem; position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 500" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M1300 100 C1000 250, 700 50, 400 200 S100 400, -100 250" stroke="white" stroke-width="0.7" opacity="0.05"/>
+      <path d="M600 0 C500 150, 700 300, 500 450 S300 600, 400 500" stroke="#C8102E" stroke-width="0.6" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">Cine & publicidad</p>
+      <h2 class="section-title">Dirección de fotografía</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="audio-grid">
+    <div class="video-card" onclick="abrirModal('jqLQ9lGtmp8', false)">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/jqLQ9lGtmp8/hqdefault.jpg" alt="Café San Bernardo" />
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Dirección de fotografía</p>
+        <p class="video-titulo">Café San Bernardo</p>
+      </div>
+    </div>
+    <div class="video-card" onclick="window.open('http://franconovo.myportfolio.com/domingo-corto-df','_blank')">
+      <div class="video-thumb" style="background:#111;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1" style="position:relative;z-index:0;"><path d="m15 10-4 2.5v-5L15 10z"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Dirección de fotografía</p>
+        <p class="video-titulo">Domingo — Corto</p>
+      </div>
+    </div>
+    <div class="video-card" style="opacity:0.4;cursor:default;">
+      <div class="video-thumb" style="background:#111;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1"><path d="m15 10-4 2.5v-5L15 10z"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="video-info">
+        <p class="video-tipo">Dirección de fotografía</p>
+        <p class="video-titulo">Próximo proyecto</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 SOBRE MÍ -->
+<section id="sobre-mi" style="position:relative;">
+  <div class="section-deco" aria-hidden="true">
+    <svg viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M-100 300 C200 150, 500 400, 800 200 S1150 350, 1400 150" stroke="white" stroke-width="0.8" opacity="0.05"/>
+      <path d="M1300 500 C1000 350, 700 550, 400 380 S100 450, -100 300" stroke="#C8102E" stroke-width="0.6" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <div class="section-title-group">
+      <p class="section-eyebrow">El fotógrafo detrás del lente</p>
+      <h2 class="section-title">Sobre mí</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="sobre-grid">
+    <div class="sobre-texto">
+      <p>Soy <strong>Franco Novo</strong>, fotógrafo y estudiante de Artes Audiovisuales. Trabajo principalmente en fotografía de música en vivo, eventos, marcas y proyectos documentales, con experiencia también en cámara e iluminación dentro del ámbito audiovisual.</p>
+      <p>Trabajo con una mirada documental que busca registrar lo que ocurre sin intervenirlo, pero entendiendo cuándo estar cerca y cuándo desaparecer.</p>
+      <p>Me formé mirando, escuchando y eligiendo quedarse con lo que importa. Creo que <strong>una imagen tiene que sentirse antes de verse</strong>. Por eso trabajo cerca del momento antes de que el momento ocurra.</p>
+      <p>Mi identidad está anclada en lo originario. El folclore, el tango, las raíces. No como nostalgia, sino como <strong>punto de partida</strong> para observar lo contemporáneo desde lo que lo sostiene. Lo que siempre estuvo, merece ser visto.</p>
+      <div class="sobre-stats">
+        <div class="stat"><span class="stat-num">7+</span><span class="stat-label">Años en fotografía</span></div>
+        <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Años en cámara & iluminación</span></div>
+        <div class="stat"><span class="stat-label">Trabajo documental y periodístico</span></div>
+        <div class="stat"><span class="stat-label">Cobertura de conciertos y eventos</span></div>
+      </div>
+    </div>
+    <div class="sobre-derecha">
+      <div class="perfil-foto-wrap">
+        <img src="fotos/perfil.jpg" alt="Franco Novo" class="perfil-foto"
+          onerror="this.parentElement.innerHTML='<div class=\'perfil-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><circle cx=\'12\' cy=\'8\' r=\'4\'/><path d=\'M4 20c0-4 3.6-7 8-7s8 3 8 7\'/></svg><span>Tu foto acá</span><span style=\'font-size:0.6rem;opacity:0.5\'>fotos/perfil.jpg</span></div>'" />
+      </div>
+      <div class="sobre-identidad">
+        <div class="identidad-item">
+          <span class="identidad-num">I</span>
+          <div class="identidad-texto">
+            <strong>Música en vivo</strong>
+            <p>Cobertura de recitales, festivales y conferencias.</p>
+          </div>
+        </div>
+        <div class="identidad-item">
+          <span class="identidad-num">II</span>
+          <div class="identidad-texto">
+            <strong>Eventos</strong>
+            <p>Cobertura corporativa y social. Registro de los momentos importantes para tu marca o institución.</p>
+          </div>
+        </div>
+        <div class="identidad-item">
+          <span class="identidad-num">III</span>
+          <div class="identidad-texto">
+            <strong>Documental</strong>
+            <p>Fotografía social y de archivo.</p>
+          </div>
+        </div>
+        <div class="identidad-item">
+          <span class="identidad-num">IV</span>
+          <div class="identidad-texto">
+            <strong>Audiovisual</strong>
+            <p>Dirección de fotografía y edición para producciones de cine, publicidad y contenido digital.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contacto-section" style="position:relative;">
+  <div class="contacto-inner">
+    <h2 class="contacto-title">Trabajemos<br><em>juntos.</em></h2>
+    <p class="contacto-sub">Si tenés un show, evento o proyecto audiovisual, escribime.</p>
+    <div class="contacto-links">
+      <div class="contacto-item">
+        <span class="contacto-tipo">Email</span>
+        <a href="mailto:franconovo2001@gmail.com" class="contacto-valor">franconovo2001@gmail.com</a>
+      </div>
+      <div class="contacto-item">
+        <span class="contacto-tipo">Instagram</span>
+        <a href="https://instagram.com/_novoph" target="_blank" class="contacto-valor">@_novoph</a>
+      </div>
+      <div class="contacto-item">
+        <span class="contacto-tipo">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/franco-novo-6375a71aa/" target="_blank" class="contacto-valor">Franco Novo</a>
+      </div>
+      <div class="contacto-item">
+        <span class="contacto-tipo">Teléfono</span>
+        <a href="tel:+542324672431" class="contacto-valor">+54 2324 672431</a>
+      </div>
+    </div>
+    <a href="mailto:franconovo2001@gmail.com" class="btn-primary">Escribir un mensaje</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Franco <span>Novo</span></div>
+  <p class="footer-copy">Fotografía & Audiovisual — Buenos Aires, Argentina</p>
+</footer>
+
+<script>
+  function abrirModal(videoId, esVertical) {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('modalIframe');
+    const inner = document.getElementById('modalInner');
+    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+    inner.className = esVertical ? 'modal-inner vertical' : 'modal-inner';
+    modal.classList.add('activo');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function cerrarModalBtn() {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('modalIframe');
+    iframe.src = '';
+    modal.classList.remove('activo');
+    document.body.style.overflow = '';
+  }
+
+  function cerrarModal(e) {
+    if (e.target === document.getElementById('videoModal')) {
+      cerrarModalBtn();
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') cerrarModalBtn();
+  });
+</script>
+
+</body>
+</html>
