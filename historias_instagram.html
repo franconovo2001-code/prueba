@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historias Instagram — Franco Novo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1a1a; font-family: 'DM Sans', sans-serif; padding: 2rem 1rem; }
+  h1 { font-family: 'Playfair Display', serif; color: #f5f0eb; font-size: 1.2rem; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+  .intro { color: #888; font-size: 0.8rem; margin-bottom: 2.5rem; line-height: 1.6; }
+  .intro strong { color: #C8102E; }
+  .historias { display: flex; flex-direction: column; gap: 3rem; }
+  .historia-wrap { display: flex; flex-direction: column; gap: 0.8rem; }
+  .historia-label { color: #C8102E; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; }
+  .historia-tip { color: #555; font-size: 0.7rem; margin-top: 0.3rem; }
+
+  /* LA HISTORIA EN SÍ — formato 9:16 */
+  .historia {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 9/16;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .historia-foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* overlay oscuro sobre la foto */
+  .historia-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.25) 0%,
+      rgba(10,10,10,0.15) 30%,
+      rgba(10,10,10,0.6) 65%,
+      rgba(10,10,10,0.92) 100%
+    );
+  }
+
+  /* líneas decorativas SVG */
+  .historia-deco {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .historia-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem 1.6rem;
+  }
+
+  .historia-content.top {
+    justify-content: space-between;
+  }
+
+  .fn { font-family: 'Playfair Display', serif; }
+  .dm { font-family: 'DM Sans', sans-serif; }
+
+  .tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #C8102E;
+    margin-bottom: 0.8rem;
+  }
+
+  .titulo-grande {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 11vw, 3.6rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: #f5f0eb;
+    margin-bottom: 1rem;
+  }
+
+  .titulo-grande em {
+    font-style: italic;
+    color: #C8102E;
+  }
+
+  .subtitulo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    line-height: 1.75;
+    color: rgba(245,240,235,0.6);
+    margin-bottom: 1.2rem;
+    max-width: 260px;
+  }
+
+  .linea-roja {
+    width: 32px;
+    height: 1px;
+    background: #C8102E;
+    margin-bottom: 0.7rem;
+    opacity: 0.8;
+  }
+
+  .pie {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,235,0.35);
+  }
+
+  .borde-rojo-izq {
+    border-left: 2px solid #C8102E;
+    padding-left: 1rem;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid rgba(200,16,46,0.5);
+    padding: 0.3rem 0.8rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,235,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .handle {
+    position: absolute;
+    top: 1.4rem;
+    left: 1.6rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,235,0.7);
+  }
+
+  .barra-roja-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #C8102E;
+  }
+  .barra-roja-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: #C8102E;
+  }
+  .barra-roja-izq {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: #C8102E;
+  }
+</style>
+</head>
+<body>
+
+<h1>Franco Novo — Historias Instagram</h1>
+<p class="intro">
+  Abrí esta página en tu celular. Hacé <strong>captura de pantalla</strong> de cada historia y subila a Instagram.<br>
+  Cada historia ya está en formato 9:16.
+</p>
+
+<div class="historias">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 1 — AGENDA ABIERTA        -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">01 — Agenda abierta</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/por2.jpg" alt="" style="object-position: center 30%;" />
+      <div class="historia-overlay" style="background: linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.2) 20%, rgba(10,10,10,0.7) 60%, rgba(10,10,10,0.97) 100%);"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M-20 580 C80 520, 200 600, 340 520 S460 560, 520 500" stroke="#C8102E" stroke-width="0.9" opacity="0.4"/>
+        <path d="M-20 200 C100 140, 240 220, 360 150" stroke="white" stroke-width="0.5" opacity="0.08"/>
+        <rect x="0" y="708" width="400" height="3" fill="#C8102E" opacity="0.9"/>
+      </svg>
+      <div class="handle">@_novoph</div>
+      <div class="historia-content">
+        <div>
+          <p class="tag">Fotografía & Audiovisual</p>
+          <h2 class="titulo-grande">Agenda<br><em>abierta.</em></h2>
+          <p class="subtitulo">Disponible para shows, eventos, marcas y proyectos audiovisuales.</p>
+          <div class="linea-roja"></div>
+          <p class="pie">Link en bio ↓</p>
+        </div>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: Tuli Acosta (recital rojo). Subila primero, antes de las de rubros.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 2 — MÚSICA EN VIVO        -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">02 — Música en vivo</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/por1.jpg" alt="" />
+      <div class="historia-overlay"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 400 C80 340, 200 420, 320 350 S440 380, 480 320" stroke="#C8102E" stroke-width="0.8" opacity="0.35"/>
+        <rect x="0" y="0" width="3" height="711" fill="#C8102E" opacity="0.8"/>
+      </svg>
+      <div class="historia-content">
+        <div class="borde-rojo-izq">
+          <p class="tag">01 — Música en vivo</p>
+          <h2 class="titulo-grande">Shows.<br>Recitales.<br><em>Festivales.</em></h2>
+          <p class="subtitulo">Cobertura desde adentro — cerca del escenario, cerca de la emoción.</p>
+          <p class="pie">franconovo.github.io</p>
+        </div>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: Maggie Cullen (cantante folklórica al aire libre).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 3 — EVENTOS               -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">03 — Eventos</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/por 9.jpg" alt="" />
+      <div class="historia-overlay" style="background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 25%, rgba(10,10,10,0.65) 60%, rgba(10,10,10,0.95) 100%);"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M-20 600 C120 540, 260 620, 400 550" stroke="#C8102E" stroke-width="0.9" opacity="0.4"/>
+        <path d="M-20 120 C100 80, 220 140, 340 80 S440 110, 480 60" stroke="white" stroke-width="0.5" opacity="0.07"/>
+        <rect x="0" y="0" width="400" height="3" fill="#C8102E" opacity="0.7"/>
+      </svg>
+      <div class="historia-content">
+        <p class="tag">02 — Eventos</p>
+        <h2 class="titulo-grande">Cobertura<br>corporativa<br><em>& social.</em></h2>
+        <p class="subtitulo">Registro de los momentos que importan para tu marca, empresa o institución.</p>
+        <div class="linea-roja"></div>
+        <p class="pie">Link en bio ↓</p>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: evento corporativo Boston Scientific.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 4 — COMERCIAL             -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">04 — Comercial</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/com4.jpg" alt="" style="object-position: center center;" />
+      <div class="historia-overlay" style="background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.1) 30%, rgba(10,10,10,0.7) 65%, rgba(10,10,10,0.96) 100%);"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M-20 550 C100 490, 240 570, 380 490 S480 520, 520 460" stroke="#C8102E" stroke-width="0.8" opacity="0.35"/>
+        <rect x="0" y="708" width="400" height="3" fill="#C8102E" opacity="0.9"/>
+        <rect x="397" y="0" width="3" height="711" fill="white" opacity="0.05"/>
+      </svg>
+      <div class="historia-content">
+        <p class="tag">03 — Comercial</p>
+        <h2 class="titulo-grande">Marcas.<br>Producto.<br><em>Moda.</em></h2>
+        <p class="subtitulo">Fotografía comercial para marcas que quieren imágenes con carácter.</p>
+        <div class="linea-roja"></div>
+        <p class="pie">@_novoph</p>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: sesión de moda bnhl (remeras en vías del tren).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 5 — DOCUMENTAL            -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">05 — Documental</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/por 17.jpg" alt="" style="object-position: center 40%;" />
+      <div class="historia-overlay" style="background: linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 30%, rgba(10,10,10,0.75) 65%, rgba(10,10,10,0.97) 100%);"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 0 C0 0, 400 0, 400 0" stroke="#C8102E" stroke-width="3" opacity="0.8"/>
+        <path d="M-20 480 C100 420, 240 500, 380 420" stroke="#C8102E" stroke-width="0.7" opacity="0.3"/>
+        <path d="M200 -10 C160 80, 120 200, 160 340 S120 500, 160 620" stroke="white" stroke-width="0.4" opacity="0.06"/>
+      </svg>
+      <div class="historia-content">
+        <p class="tag">04 — Documental</p>
+        <div class="badge">★ Trabajos premiados</div>
+        <h2 class="titulo-grande">Lo que<br>siempre<br><em>estuvo.</em></h2>
+        <p class="subtitulo">Fotografía social y de archivo. Mirada que construye relato, no solo registro.</p>
+        <p class="pie">franconovo.github.io</p>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: pareja tomados de la mano en la marcha (premiada).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- HISTORIA 6 — EDICIÓN & AUDIOVISUAL -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="historia-wrap">
+    <p class="historia-label">06 — Edición & Audiovisual</p>
+    <div class="historia">
+      <img class="historia-foto" src="fotos/por4.jpg" alt="" style="object-position: center 20%;" />
+      <div class="historia-overlay" style="background: linear-gradient(to bottom, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.35) 25%, rgba(10,10,10,0.75) 65%, rgba(10,10,10,0.97) 100%);"></div>
+      <svg class="historia-deco" viewBox="0 0 400 711" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M-20 560 C80 500, 200 580, 340 500 S460 540, 520 480" stroke="#C8102E" stroke-width="0.9" opacity="0.38"/>
+        <path d="M-20 180 C100 130, 220 190, 340 130 S440 160, 480 110" stroke="white" stroke-width="0.4" opacity="0.07"/>
+        <rect x="0" y="708" width="400" height="3" fill="#C8102E" opacity="0.85"/>
+      </svg>
+      <div class="historia-content">
+        <p class="tag">05 — 06 Edición & Dirección de foto</p>
+        <h2 class="titulo-grande">Edición<br>& dirección<br><em>audiovisual.</em></h2>
+        <p class="subtitulo">Reels, videos institucionales y dirección de fotografía para cine y publicidad.</p>
+        <div class="linea-roja"></div>
+        <p class="pie">Link en bio ↓</p>
+      </div>
+    </div>
+    <p class="historia-tip">Foto: guitarrista contraluz con humo (Él Mató a un Policía Motorizado).</p>
+  </div>
+
+</div>
+
+</body>
+</html>
